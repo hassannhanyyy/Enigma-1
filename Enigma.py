@@ -43,3 +43,104 @@ Plugboard = [0, 24, 2, 3, 4, 5, 22, 7, 8, 9, 10, 12, 11, 16, 14, 15, 13, 17, 18,
 R1start = x
 R2start = y
 R3start = z
+
+# Final Rotor #1
+F1 = []
+if(a == 1):
+    F1 = R1
+
+if(a == 2):
+    F1 = R2
+
+if(a == 3):
+    F1 = R3
+
+if(a == 4):
+    F1 = R4
+
+if(a == 5):
+    F1 = R5
+
+# Final Rotor #2
+F2 = []
+if(a == 1):
+    F2 = R1
+
+if(a == 2):
+    F2 = R2
+
+if(a == 3):
+    F2 = R3
+
+if(a == 4):
+    F2 = R4
+
+if(a == 5):
+    F2 = R5
+
+# Final Rotor #3
+F3 = []
+if(a == 1):
+    F3 = R1
+
+if(a == 2):
+    F3 = R2
+
+if(a == 3):
+    F3 = R3
+
+if(a == 4):
+    F3 = R4
+
+if(a == 5):
+    F3 = R5
+
+# Shifting the start setting for the rotor
+def shiftstart(seq, n):
+    return seq[n: ] + seq[:n]
+
+#Shifting the rotors - rn for doube character literal sequence, n for a single character (integer), and trunc to output the truncated number without decimals
+def shift(seq, n, rn, numb):
+    if rn == 1:
+        n = -n % len(seq)
+
+    elif rn == 2:
+        n = - math.trunc(n/25) % len(seq)
+        
+    elif rn == 3:
+        n = - math.trunc(n/675) % len(seq)
+       
+    return seq[n:] + seq[:n]
+
+#Going back through the rotor after reflection    
+def rrev(seq):
+    rrev = ['empty']*26
+    for i in range(26):
+        rrev[seq[i]] = i
+    
+    return rrev
+
+#Going through the rotor
+def rotor(seq, rev, numb, rn):
+    number = []
+    Rotorreverse = ['empty']*26
+    if rev == 0:
+        for i in range(len(numb)):
+            rotation = shift(seq, i, rn, numb)
+            number.append(rotation[numb[i]])
+            
+    elif rev == 1:
+        for i in range(len(numb)):
+            rotation = shift(seq, i, rn, numb)
+            seqrev = rrev(rotation)
+            number.append(seqrev[numb[i]])
+        
+    return number
+
+#Going through the reflector or plugboard      
+def RefPlug(list, numbIII):
+    ref = []
+    for i in range(len(numbIII)):
+        ref.append(list[numbIII[i]])
+        
+    return ref
