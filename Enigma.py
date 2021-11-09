@@ -23,6 +23,9 @@ print("Rotor setting: ",y)
 z = eval(input("Input the first rotor start setting (0-25)?  "))
 print("Rotor setting: ",z)
 
+ed = input("Would you like to Encrypt or Decrypt?  ")
+print(ed+"ed: ")
+
 numb = []
 
 for sign in message:
@@ -99,7 +102,7 @@ if(a == 5):
 def shiftstart(seq, n):
     return seq[n: ] + seq[:n]
 
-#Shifting the rotors - rn for doube character literal sequence, n for a single character (integer), and trunc to output the truncated number without decimals
+# Shifting the rotors - rn for doube character literal sequence, n for a single character (integer), and trunc to output the truncated number without decimals
 def shift(seq, n, rn, numb):
     if rn == 1:
         n = -n % len(seq)
@@ -112,7 +115,7 @@ def shift(seq, n, rn, numb):
        
     return seq[n:] + seq[:n]
 
-#Going back through the rotor after reflection    
+# Going back through the rotor after reflection    
 def rrev(seq):
     rrev = ['empty']*26
     for i in range(26):
@@ -120,7 +123,7 @@ def rrev(seq):
     
     return rrev
 
-#Going through the rotor
+# Going through the rotor
 def rotor(seq, rev, numb, rn):
     number = []
     Rotorreverse = ['empty']*26
@@ -137,10 +140,40 @@ def rotor(seq, rev, numb, rn):
         
     return number
 
-#Going through the reflector or plugboard      
+# Going through the reflector or plugboard      
 def RefPlug(list, numbIII):
     ref = []
     for i in range(len(numbIII)):
         ref.append(list[numbIII[i]])
         
     return ref
+
+# Enigma
+RotorI = shiftstart(F1, x)
+RotorII = shiftstart(F2, y)
+RotorIII = shiftstart(F3, z)
+
+Seq = RefPlug(Plugboard, numb)
+Seq1 = rotor(RotorI, 0, Seq, 1)
+Seq2 = rotor(RotorII, 0, Seq1, 2)
+Seq3 = rotor(RotorIII, 0, Seq2, 3) 
+Seq4 = RefPlug(Reflector, Seq3)
+Seq5 = rotor(RotorIII, 1, Seq4, 3)
+Seq6 = rotor(RotorII, 1, Seq5, 2)
+Seq7 = rotor(RotorI, 1, Seq6, 1)
+Seq8 = RefPlug(Plugboard, Seq7)
+
+# Message output
+uppercase = []
+lowercase = []
+
+for i in range(len(Seq8)):
+    word = chr(Seq8[i]+97)
+    word2 = chr(Seq8[i]+65)
+    lowercase.append(word)
+    uppercase.append(word2)
+
+
+print("In uppercase:   ",''.join(uppercase))
+print("and in lowercase:   ",''.join(lowercase))
+
