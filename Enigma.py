@@ -23,8 +23,36 @@ print("Rotor setting: ",y)
 z = eval(input("Input the first rotor start setting (0-25)?  "))
 print("Rotor setting: ",z)
 
-ed = input("Would you like to Encrypt or Decrypt?  ")
-print(ed+"ed: ")
+ed = eval(input("Would you like to Encrypt (1) or Decrypt (2)?  "))
+
+
+if (ed == 1):
+# Encrypted Message Class
+ class Output1:
+        def __init__(x, encrypt, message):
+            x.encrypt = encrypt
+            x.message = message
+
+        def printed(output):
+            print("The encrypted message " + output.encrypt)
+
+ p1 = Output1("is: ", " ")
+ p1.printed()
+
+if (ed == 2):
+
+# Decrypted Message Class
+ class Output2:
+        def __init__(x, decrypted, message):
+            x.decrypted = decrypted
+            x.message = message
+
+        def printed(output):
+            print("The decrypted message " + output.decrypted)
+
+ p1 = Output2("is:  ", " ")
+ p1.printed()
+
 
 numb = []
 
@@ -141,29 +169,30 @@ def rotor(seq, rev, numb, rn):
     return number
 
 # Going through the reflector or plugboard      
-def RefPlug(list, numbIII):
+def RefPlug(list, numb3):
     ref = []
-    for i in range(len(numbIII)):
-        ref.append(list[numbIII[i]])
+    for i in range(len(numb3)):
+        ref.append(list[numb3[i]])
         
     return ref
 
 # Enigma
-RotorI = shiftstart(F1, x)
-RotorII = shiftstart(F2, y)
-RotorIII = shiftstart(F3, z)
+Rotor1 = shiftstart(F1, x)
+Rotor2 = shiftstart(F2, y)
+Rotor3 = shiftstart(F3, z)
 
 Seq = RefPlug(Plugboard, numb)
-Seq1 = rotor(RotorI, 0, Seq, 1)
-Seq2 = rotor(RotorII, 0, Seq1, 2)
-Seq3 = rotor(RotorIII, 0, Seq2, 3) 
+Seq1 = rotor(Rotor1, 0, Seq, 1)
+Seq2 = rotor(Rotor2, 0, Seq1, 2)
+Seq3 = rotor(Rotor3, 0, Seq2, 3) 
 Seq4 = RefPlug(Reflector, Seq3)
-Seq5 = rotor(RotorIII, 1, Seq4, 3)
-Seq6 = rotor(RotorII, 1, Seq5, 2)
-Seq7 = rotor(RotorI, 1, Seq6, 1)
+Seq5 = rotor(Rotor3, 1, Seq4, 3)
+Seq6 = rotor(Rotor2, 1, Seq5, 2)
+Seq7 = rotor(Rotor1, 1, Seq6, 1)
 Seq8 = RefPlug(Plugboard, Seq7)
 
-# Message output
+
+# Message output - uppercase AND lowecase!!
 uppercase = []
 lowercase = []
 
@@ -174,6 +203,5 @@ for i in range(len(Seq8)):
     uppercase.append(word2)
 
 
-print("In uppercase:   ",''.join(uppercase))
-print("and in lowercase:   ",''.join(lowercase))
-
+print("(In uppercase):   ",''.join(uppercase))
+print("(and in lowercase):   ",''.join(lowercase))
