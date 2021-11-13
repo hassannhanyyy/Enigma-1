@@ -56,8 +56,8 @@ if (ed == 2):
 
 numb = []
 
-for sign in message:
-    number = ord(sign) - 65
+for unicode in message:
+    number = ord(unicode) - 65
     numb.append(number)
 
 
@@ -128,12 +128,12 @@ if(a == 5):
 
 # Shifting the start setting for the rotor
 def shiftstart(seq, n):
-    return seq[n: ] + seq[:n]
+    return seq[n:] + seq[:n]
 
-# Shifting the rotors - rn for doube character literal sequence, n for a single character (integer), and trunc to output the truncated number without decimals
+# Shifting the rotors - n for a single character (integer), and trunc to output the truncated number without decimals
 def shift(seq, n, rn, numb):
     if rn == 1:
-        n = -n % len(seq)
+        n = - n % len(seq)
 
     elif rn == 2:
         n = - math.trunc(n/25) % len(seq)
@@ -143,9 +143,9 @@ def shift(seq, n, rn, numb):
        
     return seq[n:] + seq[:n]
 
-# Going back through the rotor after reflection    
+# Going back through the rotor after reflection(26)
 def rrev(seq):
-    rrev = ['empty']*26
+    rrev = ['']*26
     for i in range(26):
         rrev[seq[i]] = i
     
@@ -154,7 +154,7 @@ def rrev(seq):
 # Going through the rotor
 def rotor(seq, rev, numb, rn):
     number = []
-    Rotorreverse = ['empty']*26
+    Rotorreverse = ['']*26
     if rev == 0:
         for i in range(len(numb)):
             rotation = shift(seq, i, rn, numb)
@@ -168,7 +168,7 @@ def rotor(seq, rev, numb, rn):
         
     return number
 
-# Going through the reflector or plugboard      
+# Going through the reflector and plugboard      
 def RefPlug(list, numb3):
     ref = []
     for i in range(len(numb3)):
